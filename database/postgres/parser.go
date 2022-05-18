@@ -19,10 +19,13 @@ func NewParser() PostgresParser {
 }
 
 func (p PostgresParser) Parse(sql string) ([]database.DDLStatement, error) {
+	// Attempt to parse sql with PostgreSQL's parser first. If it works, use the result.
 	stmts, err := p.parseStmts(sql)
 	if err == nil {
 		return stmts, nil
 	}
+
+	// Otherwise, use the generic parser. We intend to deprecate this path in the future.
 	return p.parser.Parse(sql)
 }
 
