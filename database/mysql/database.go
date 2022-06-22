@@ -85,6 +85,7 @@ func (d *MysqlDatabase) dumpTableDDL(table string) (string, error) {
 		return "", err
 	}
 
+	ddl = strings.ReplaceAll("CREATE TABLE IF NOT EXISTS", "CREATE TABLE", ddl)
 	return ddl + ";", nil
 }
 

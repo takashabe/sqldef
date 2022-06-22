@@ -164,7 +164,7 @@ func (g *Generator) generateDDLs(desiredDDLs []DDL) ([]string, error) {
 		desiredTable := findTableByName(g.desiredTables, currentTable.name)
 		if desiredTable == nil {
 			// Obsoleted table found. Drop table.
-			ddls = append(ddls, fmt.Sprintf("DROP TABLE %s", g.escapeTableName(currentTable.name)))
+			ddls = append(ddls, fmt.Sprintf("DROP TABLE IF EXISTS %s", g.escapeTableName(currentTable.name)))
 			g.currentTables = removeTableByName(g.currentTables, currentTable.name)
 			continue
 		}
